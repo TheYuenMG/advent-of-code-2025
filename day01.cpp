@@ -69,7 +69,38 @@ long long part1(const vector<string>& lines)
 //     returns the computed Part 2 result as a 64-bit integer
 long long part2(const vector<string>& lines)
 {
-    return 0;
+    int dial = 50;
+    long long zeroes = 0;
+    for (const std::string& current : lines)
+    {
+        char direction = current[0];
+        int value = std::stoi(current.substr(1));
+        int dial_start = dial;
+        zeroes += value / DIAL_SIZE;
+        value %= DIAL_SIZE;
+        switch (direction)
+        {
+        case LEFT:
+            dial -= value;
+            if (dial <= 0 && dial_start)
+            {
+                zeroes++;
+            }
+            break;
+        case RIGHT:
+            dial += value;
+            if (dial >= DIAL_SIZE)
+            {
+                zeroes++;
+            }
+            break;
+        default:
+            std::cout << "Invalid direction: " << direction << std::endl;
+            break;
+        }
+        dial = (dial % DIAL_SIZE + DIAL_SIZE) % DIAL_SIZE;
+    }
+    return zeroes;
 }
 
 // orchestrate input parsing and rendering of both part results
@@ -81,7 +112,7 @@ void solve(ostream& out)
 {
     const vector<string> lines = parse_input();
     out << "Day 01 - Part 1: " << part1(lines) << '\n'; // Answer: 1150
-    out << "Day 01 - Part 2: " << part2(lines) << '\n';
+    out << "Day 01 - Part 2: " << part2(lines) << '\n'; // Answer: 6738
 }
 
 // program entry point delegating to solve using standard output
