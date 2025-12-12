@@ -3,6 +3,7 @@
 
 #include "utils.h"
 
+#include <cmath>
 #include <iostream>
 #include <ostream>
 #include <sstream>
@@ -14,6 +15,11 @@ using std::cout;
 using std::ostream;
 using std::string;
 using std::vector;
+
+const char WHITESPACE = ' ';
+const char COMMA = ',';
+const char HYPHEN_MINUS = '-';
+const int POW10_MAXIMUM = 20;
 
 // load the raw puzzle input from the default data file
 // preconditions:
@@ -36,13 +42,18 @@ long long part1(const vector<string>& lines)
     string input = lines[0];
     for (int i = 0; i < input.length(); i++)
     {
-        if (input[i] == '-' || input[i] == ',')
+        if (input[i] == COMMA || input[i] == HYPHEN_MINUS)
         {
-            input[i] = ' ';
+            input[i] = WHITESPACE;
         }
     }
     long long lower, upper;
     std::stringstream ranges(input);
+    vector<long long> pow10(POW10_MAXIMUM, 1);
+    for (int i = 1; i < POW10_MAXIMUM; i++)
+    {
+        pow10[i] = pow10[i-1] * 10;
+    }
     while (ranges >> lower >> upper)
     {
         for (long long i = lower; i <= upper; i++)
@@ -50,12 +61,7 @@ long long part1(const vector<string>& lines)
             int digits = std::to_string(i).size();
             if (!(digits % 2))
             {
-                long long factor = 1;
-                for (int j = 0; j < digits / 2; j++)
-                {
-                    factor *= 10;
-                }
-                factor++;
+                long long factor = pow10[digits / 2] + 1;
                 if (!(i % factor))
                 {
                     result += i;
@@ -84,7 +90,7 @@ long long part2(const vector<string>& lines)
 void solve(ostream& out)
 {
     const vector<string> lines = parse_input();
-    out << "Day 02 - Part 1: " << part1(lines) << '\n';
+    out << "Day 02 - Part 1: " << part1(lines) << '\n'; // Answer: 16793817782
     out << "Day 02 - Part 2: " << part2(lines) << '\n';
 }
 
