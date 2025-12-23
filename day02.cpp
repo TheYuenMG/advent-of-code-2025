@@ -22,9 +22,9 @@ const int POW10_MAXIMUM = 20;
 
 // load the raw puzzle input from the default data file
 // preconditions:
-//     data.txt is present in the working directory
+//    data.txt is present in the working directory
 // postconditions:
-//     returns the contents of data.txt as an ordered list of strings
+//    returns the contents of data.txt as an ordered list of strings
 vector<string> parse_input()
 {
     return read_lines();
@@ -32,9 +32,9 @@ vector<string> parse_input()
 
 // compute the answer for Day 2 Part 1 based on the parsed input
 // preconditions:
-//     lines contains the puzzle input returned from parse_input()
+//    lines contains the puzzle input returned from parse_input()
 // postconditions:
-//     returns the computed Part 1 result as a 64-bit integer
+//    returns the computed Part 1 result as a 64-bit integer
 long long part1(const vector<string>& lines)
 {
     long long result = 0;
@@ -51,7 +51,7 @@ long long part1(const vector<string>& lines)
     vector<long long> pow10(POW10_MAXIMUM, 1);
     for (int i = 1; i < POW10_MAXIMUM; i++)
     {
-        pow10[i] = pow10[i-1] * 10;
+        pow10[i] = pow10[i - 1] * 10;
     }
     while (ranges >> lower >> upper)
     {
@@ -78,9 +78,9 @@ long long part1(const vector<string>& lines)
 
 // compute the answer for Day 2 Part 2 based on the parsed input
 // preconditions:
-//     lines contains the puzzle input returned from parse_input()
+//    lines contains the puzzle input returned from parse_input()
 // postconditions:
-//     returns the computed Part 2 result as a 64-bit integer
+//    returns the computed Part 2 result as a 64-bit integer
 long long part2(const vector<string>& lines)
 {
     long long result = 0;
@@ -97,7 +97,7 @@ long long part2(const vector<string>& lines)
     vector<long long> pow10(POW10_MAXIMUM, 1);
     for (int i = 1; i < POW10_MAXIMUM; i++)
     {
-        pow10[i] = pow10[i-1] * 10;
+        pow10[i] = pow10[i - 1] * 10;
     }
     while (ranges >> lower >> upper)
     {
@@ -130,9 +130,9 @@ long long part2(const vector<string>& lines)
 
 // orchestrate input parsing and rendering of both part results
 // preconditions:
-//     out is a valid output stream ready for writing
+//    out is a valid output stream ready for writing
 // postconditions:
-//     writes both Advent of Code Day 2 answers to the stream
+//    writes both Advent of Code Day 2 answers to the stream
 void solve(ostream& out)
 {
     const vector<string> lines = parse_input();
@@ -142,9 +142,9 @@ void solve(ostream& out)
 
 // program entry point delegating to solve using standard output
 // preconditions:
-//     standard output stream is available
+//    standard output stream is available
 // postconditions:
-//     returns 0 after solve completes
+//    returns 0 after solve completes
 int main()
 {
     solve(cout);
