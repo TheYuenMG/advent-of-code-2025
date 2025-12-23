@@ -15,10 +15,10 @@ using std::ostream;
 using std::string;
 using std::vector;
 
+const int POW10_MAXIMUM = 20;
 const char WHITESPACE = ' ';
 const char COMMA = ',';
 const char HYPHEN_MINUS = '-';
-const int POW10_MAXIMUM = 20;
 
 // load the raw puzzle input from the default data file
 // preconditions:
