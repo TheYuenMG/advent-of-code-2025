@@ -15,6 +15,7 @@ using std::string;
 using std::vector;
 
 const int BASE = 10;
+const int BATTERY_COUNT = 12;
 const char ZERO = '0';
 
 // load the raw puzzle input from the default data file
@@ -66,7 +67,28 @@ long long part1(const vector<string>& lines)
 //     returns the computed Part 2 result as a 64-bit integer
 long long part2(const vector<string>& lines)
 {
-    return 0;
+    long long joltage = 0;
+    for (const auto& current : lines)
+    {
+        long long bank = 0;
+        int position = -1;
+        for (int i = 1; i <= BATTERY_COUNT; i++)
+        {
+            bank *= BASE;
+            int largest = 0;
+            for (int j = position + 1; j < current.length() - BATTERY_COUNT + i; j++)
+            {
+                if (current[j] - ZERO > largest)
+                {
+                    largest = current[j] - ZERO;
+                    position = j;
+                }
+            }
+            bank += largest;
+        }
+        joltage += bank;
+    }
+    return joltage;
 }
 
 // orchestrate input parsing and rendering of both part results
@@ -78,7 +100,7 @@ void solve(ostream& out)
 {
     const vector<string> lines = parse_input();
     out << "Day 03 - Part 1: " << part1(lines) << '\n'; // Answer: 17432
-    out << "Day 03 - Part 2: " << part2(lines) << '\n';
+    out << "Day 03 - Part 2: " << part2(lines) << '\n'; // Answer: 173065202451341
 }
 
 // program entry point delegating to solve using standard output
