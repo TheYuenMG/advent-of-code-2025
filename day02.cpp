@@ -3,7 +3,6 @@
 
 #include "utils.h"
 
-#include <cmath>
 #include <iostream>
 #include <ostream>
 #include <sstream>
