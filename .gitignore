@@ -39,5 +39,8 @@
 *.out
 *.app
 
-# debug information files
+# Debug information files
 *.dwo
+
+# Personal IDE settings
+.idea/
