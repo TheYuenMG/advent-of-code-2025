@@ -16,6 +16,7 @@ using std::vector;
 
 const int ADJACENT_LIMIT = 4;
 const int ADJACENT_COUNT = 8;
+const char FLOOR = '.';
 const char PAPER_ROLL = '@';
 
 // load the raw puzzle input from the default data file
@@ -78,7 +79,26 @@ long long part1(const vector<string>& lines)
 //    returns the computed Part 2 result as a 64-bit integer
 long long part2(const vector<string>& lines)
 {
-    return 0;
+    long long removable = 0;
+    vector<string> grid = lines;
+    bool modified = true;
+    while (modified)
+    {
+        modified = false;
+        for (int y = 0; y < grid.size(); y++)
+        {
+            for (int x = 0; x < grid[y].size(); x++)
+            {
+                if (grid[y][x] == PAPER_ROLL && adjacent(grid, y, x) < ADJACENT_LIMIT)
+                {
+                    grid[y][x] = FLOOR;
+                    removable++;
+                    modified = true;
+                }
+            }
+        }
+    }
+    return removable;
 }
 
 // orchestrate input parsing and rendering of both part results
@@ -90,7 +110,7 @@ void solve(ostream& out)
 {
     const vector<string> lines = parse_input();
     out << "Day 04 - Part 1: " << part1(lines) << '\n'; // Answer: 1602
-    out << "Day 04 - Part 2: " << part2(lines) << '\n';
+    out << "Day 04 - Part 2: " << part2(lines) << '\n'; // Answer: 9518
 }
 
 // program entry point delegating to solve using standard output
